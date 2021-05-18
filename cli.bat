@@ -4,6 +4,10 @@ SETLOCAL enabledelayedexpansion
 
 :: Enable Unicode support (if terminal supports it too), and colors
 chcp 65001 >nul
+Set _fBGreen=[92m
+Set _fBWhite=[97m
+Set _bBBlue=[104m
+Set _RESET=[0m
 
 :: OBTAIN ABSOLUTE PATHS TO GAME FOLDER AND FILES
 FOR /f "usebackq tokens=3*" %%a in (`REG QUERY "HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Bioware\Mass Effect Legendary Edition" /v "install dir"`) do (
@@ -40,13 +44,13 @@ COPY .\Temp\BIOGame.ini .\Temp\BIOGame.ini.BAK >nul
 @ECHO %_path_mele%> .\Temp\_massEffectDirectory.txt
 @ECHO off
 
-::debug::echo ❕ Stop point #1: Msg: External script will work next.
+::debug::echo ❕ Stop point #1: Msg: PYTHON will work next.
 ::debug::SET /p waiter="Waiting for debugging. Press ENTER to continue.  "
 
 :: MAKE CHANGES IN EXTRACTED FILES
 python worker.py
 
-::debug::echo ❕ Stop point #2. Msg: External script's job is done. 
+::debug::echo ❕ Stop point #2. Msg: PYTHON's job is done. 
 ::debug::SET /p waiter="Waiting for debugging. Press ENTER to continue. "
 
 :: REPACK COALESCED_INT.BIN
@@ -73,7 +77,7 @@ IF /i "%backupFiles%" == "y" (
     :: 7-zip is not available. Using PowerShell to compress
     PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\helpers\zipper.ps1'"
     )
-  ECHO ✅ Backup file created at: %cd%\Backup\Originals.zip
+  ECHO ✅ Backup file created at: %_fBWhite%%_bBBlue%%cd%\Backup\Originals.zip%_RESET%
   ) ELSE (
   :: Remove Backup folder if empty because it won't be used
   RD /Q .\Backup
@@ -86,6 +90,6 @@ IF /i "%backupFiles%" == "y" (
 :: REMOVE TEMPORARY FILES AND FOLDERS
 RD /S /Q .\Temp
 
-ECHO ✅ All done^^!
+ECHO %_fBGreen%✅ All done^^!%_RESET%
 SET /p close = "Press ENTER to close. "
 ENDLOCAL
