@@ -4,7 +4,7 @@ cls Editor parses content of a single `.txt` file at ./MOD/ directory
     and apply changes to respective temporary copy of original `.ini` file.
 cls EditorPlus parses several files given at it, changes several `.ini` files.
 """
-__version__ = "0.9"
+__version__ = "1.0"
 __author__ = "A. Yasin Akalın"
 __credits__ = ""
 __license__ = "GNU General Public License v3.0"

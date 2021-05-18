@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """quickIniEditor.py
 Starting point of the program. Created for to be able to bundle the program."""
-__version__ = "0.9"
+__version__ = "1.0"
 __author__ = "A. Yasin Akalın"
 __credits__ = ""
 __license__ = "GNU General Public License v3.0"

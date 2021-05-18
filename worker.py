@@ -3,7 +3,7 @@
 It reads modifications from ./MOD then modifies files at ./Temp.
 Modified files will be moved to Mass Effect's
 installation folder outside of this script's aspect."""
-__version__ = "0.9"
+__version__ = "1.0"
 __author__ = "A. Yasin Akalın"
 __credits__ = ""
 __license__ = "GNU General Public License v3.0"
