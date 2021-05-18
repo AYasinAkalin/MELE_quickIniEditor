@@ -2,6 +2,9 @@
 SETLOCAL
 SETLOCAL enabledelayedexpansion
 
+:: Enable Unicode support (if terminal supports it too), and colors
+chcp 65001 >nul
+
 :: OBTAIN ABSOLUTE PATHS TO GAME FOLDER AND FILES
 FOR /f "usebackq tokens=3*" %%a in (`REG QUERY "HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Bioware\Mass Effect Legendary Edition" /v "install dir"`) do (
   SET _path_mele=%%b
@@ -9,6 +12,9 @@ FOR /f "usebackq tokens=3*" %%a in (`REG QUERY "HKEY_LOCAL_MACHINE\SOFTWARE\Wow6
 SET _path_coa1=%_path_mele%Game\ME1\BioGame\CookedPCConsole\Coalesced_INT.bin
 SET _path_bioengine=%_path_mele%Game\ME1\BioGame\Config\BIOEngine.ini
 SET _path_biogame=%_path_mele%Game\ME1\BioGame\Config\BIOGame.ini
+
+ECHO Hello^^! ╰(*°▽°*)╯
+SET /p waiter="Press ENTER to start"
 
 :: CREATE NECASSARY FOLDERS
 SET _path_zipContent=".\Temp\z\Mass Effect Legendary Edition\Game\ME1\BioGame\"
