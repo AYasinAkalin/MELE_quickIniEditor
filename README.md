@@ -1,9 +1,25 @@
 # MELE Quick Ini Editor - Introduction
 This small terminal application allows users and modders to apply certain changes to
-Mass Effect 1: Legendary Edition without replacing the whole file; losing possible
-early modifications in process.
+Mass Effect 1: Legendary Edition's configuration files without replacing the whole file; losing possible early modifications in process.
 
-Modders only need to fill respective `.txt` file inside `MOD` folder. Your addition to `.txt` files will be reflected on the game's `.ini` files.
+Currently editable files are all `.ini` files inside `Coalesced_INT.bin`, `BIOEngine.ini` and `BIOGame.ini`.
+
+### To Modders
+Modders only need to provide users `.txt` files inside `MOD` folder as filled. Modders can also just share their changes in syntax provided below.
+
+Your addition to `.txt` files will be reflected on the game's `.ini` files.
+
+### Build the source code (for developers)
+Use py2exe and provided `setup.py`.
+
+```python setup.py py2exe```
+
+### Run the program (for users)
+Download the latest release, extract the `.zip` file, run `quickIniEditor.exe`.
+
+You also need to fill `.txt` files inside `MOD` folder or replace the `.txt` file provided by your mod. Read below to learn more. 
+
+This program won't change change your files unless you make changes to `.txt` files since they are shipped empty.
 
 ## Quick look at INI Files
 `.ini` files consist of __sections__ and key-value pairs under each __section__. A key in a `.ini` file is called an __option__. An __option__ must have a value attached to it with `=`.
