@@ -53,7 +53,10 @@ COPY .\Temp\BIOGame.ini .\Temp\BIOGame.ini.BAK >nul
 .\LECoal\LECoal.exe pack .\Temp\unpacked_coalescend .\Temp\Coalesced_INT.bin >nul
 
 :: DETECT MODIFIED FILES AND APPLY THE CHANGES
-:: TODO: Use powershell to control files if any changes has been made
+:: This option doesn't ask user for confirmation
+PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\helpers\modificationDetector.ps1'"
+:: Disabled option below asks user for confirmation to overwrite for each file
+::PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\helpers\modificationDetectorWithConfirmation.ps1'"
 
 :: PRODUCE A BACKUP .ZIP FILE
 SET backupFiles="n"
