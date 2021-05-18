@@ -10,7 +10,7 @@ __license__ = "GNU General Public License v3.0"
 __date__ = "2021-05-18"
 
 import sys
-from constants import modFileDelimeter as delim
+from constants import modFileDelimiter as delim
 from editors import Editor, EditorPlus
 from pathlib import Path
 

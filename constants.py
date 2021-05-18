@@ -1,2 +1,2 @@
 '''constants.py'''
-modFileDelimeter = ";;"
+modFileDelimiter = ";;"

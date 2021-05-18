@@ -43,8 +43,8 @@ This line `DefaultGame=SFXGame.BioSPGame` from `Mass Effect Legendary Edition\Ga
 
 You should put `vanillaString`s as is.
 
-### Delimeter (;;)
-`;;` is delimeter between `vanillaString` and `modificationString`. Don't put spaces between the delimeter and `vanillaString` and `modificationString`.
+### Delimiter (;;)
+`;;` is delimiter between `vanillaString` and `modificationString`. Don't put spaces between the delimiter and `vanillaString` and `modificationString`.
 
 ### modificationString
 Modified state of `vanillaString`. This includes your modification. Use the same __option__ name in the `vanillaString`.
