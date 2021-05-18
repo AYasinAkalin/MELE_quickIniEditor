@@ -56,7 +56,26 @@ COPY .\Temp\BIOGame.ini .\Temp\BIOGame.ini.BAK >nul
 :: TODO: Use powershell to control files if any changes has been made
 
 :: PRODUCE A BACKUP .ZIP FILE
-:: TODO: Use either 7zip or powershell to zip original files for backup
+SET backupFiles="n"
+SET /p backupFiles="❔ Would you like to backup your original files as a .zip file? [y|n]: "
+:: /i parameter is for case insensitive comparison
+IF /i "%backupFiles%" == "y" (
+  MOVE .\Temp\Coalesced_INT.bin.BAK %_path_zipContent%CookedPCConsole\Coalesced_INT.bin >nul
+  MOVE .\Temp\BIOEngine.ini.BAK %_path_zipContent%Config\BIOEngine.ini >nul
+  MOVE .\Temp\BIOGame.ini.BAK %_path_zipContent%Config\BIOGame.ini >nul
+  IF EXIST .\7zip\7za.exe (
+    :: Using 7-zip to compress
+    .\7zip\7za.exe a %_path_zipFile% .\Temp\z\* >nul
+    ) ELSE (
+    :: 7-zip is not available. Using PowerShell to compress
+    PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\helpers\zipper.ps1'"
+    )
+  ECHO ✅ Backup file created at: %cd%\Backup\Originals.zip
+  ) ELSE (
+  :: Remove Backup folder if empty because it won't be used
+  RD /Q .\Backup
+  ECHO ✅ Skipping backup
+  )
 
 ::debug::echo ❕ Stop point #3: Msg: Work work is done. Will clean temp. files then exit.
 ::debug::SET /p waiter="❕ Stop point #3. Waiting for debugging. Press ENTER to continue.  "
@@ -64,6 +83,6 @@ COPY .\Temp\BIOGame.ini .\Temp\BIOGame.ini.BAK >nul
 :: REMOVE TEMPORARY FILES AND FOLDERS
 RD /S /Q .\Temp
 
-ECHO All done^^!
+ECHO ✅ All done^^!
 SET /p close = "Press ENTER to close. "
 ENDLOCAL
