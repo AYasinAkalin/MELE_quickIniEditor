@@ -28,7 +28,7 @@ COPY "%_path_bioengine%" .\Temp\BIOEngine.ini >nul
 COPY "%_path_biogame%" .\Temp\BIOGame.ini >nul
 
 :: UNPACK COALESCED_INT.BIN
-:: TODO: Add coalesced unpacker
+.\LECoal\LECoal.exe unpack .\Temp\Coalesced_INT.bin .\Temp\unpacked_coalescend >nul
 
 :: SAVE COPIED FILES AS BACKUP QUIETLY
 COPY .\Temp\Coalesced_INT.bin .\Temp\Coalesced_INT.bin.BAK >nul
@@ -50,7 +50,7 @@ COPY .\Temp\BIOGame.ini .\Temp\BIOGame.ini.BAK >nul
 ::debug::SET /p waiter="Waiting for debugging. Press ENTER to continue. "
 
 :: REPACK COALESCED_INT.BIN
-:: TODO: Add coalesced packer
+.\LECoal\LECoal.exe pack .\Temp\unpacked_coalescend .\Temp\Coalesced_INT.bin >nul
 
 :: DETECT MODIFIED FILES AND APPLY THE CHANGES
 :: TODO: Use powershell to control files if any changes has been made
