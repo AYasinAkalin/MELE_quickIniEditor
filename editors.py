@@ -4,6 +4,11 @@ cls Editor parses content of a single `.txt` file at ./MOD/ directory
     and apply changes to respective temporary copy of original `.ini` file.
 cls EditorPlus parses several files given at it, changes several `.ini` files.
 """
+__version__ = "0.9"
+__author__ = "A. Yasin Akalın"
+__credits__ = ""
+__license__ = "GNU General Public License v3.0"
+__date__ = "2021-05-18"
 
 
 class Editor(object):

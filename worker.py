@@ -3,6 +3,11 @@
 It reads modifications from ./MOD then modifies files at ./Temp.
 Modified files will be moved to Mass Effect's
 installation folder outside of this script's aspect."""
+__version__ = "0.9"
+__author__ = "A. Yasin Akalın"
+__credits__ = ""
+__license__ = "GNU General Public License v3.0"
+__date__ = "2021-05-18"
 
 import sys
 from constants import modFileDelimeter as delim
@@ -49,7 +54,7 @@ def foldercrawl():
     return foldercontents
 
 
-print("hello from python!✅❕❌")
+# print("hello from python!✅❕❌")
 if __name__ == '__main__':
     ''' __name__ == '__main__' check stops following code to execute
     when this file is called from another Python script'''
