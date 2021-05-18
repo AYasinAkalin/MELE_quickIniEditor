@@ -44,7 +44,7 @@ COPY .\Temp\BIOGame.ini .\Temp\BIOGame.ini.BAK >nul
 ::debug::SET /p waiter="Waiting for debugging. Press ENTER to continue.  "
 
 :: MAKE CHANGES IN EXTRACTED FILES
-:: TODO: Create a script to work on files
+python worker.py
 
 ::debug::echo ❕ Stop point #2. Msg: External script's job is done. 
 ::debug::SET /p waiter="Waiting for debugging. Press ENTER to continue. "
