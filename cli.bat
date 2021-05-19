@@ -7,17 +7,48 @@ chcp 65001 >nul
 Set _fBGreen=[92m
 Set _fBWhite=[97m
 Set _bBBlue=[104m
+Set _fRed=[31m
 Set _RESET=[0m
 
+ECHO Hello^^! ╰(*°▽°*)╯
+
 :: OBTAIN ABSOLUTE PATHS TO GAME FOLDER AND FILES
-FOR /f "usebackq tokens=3*" %%a in (`REG QUERY "HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Bioware\Mass Effect Legendary Edition" /v "install dir"`) do (
-  SET _path_mele=%%b
-  )
+FOR /f "usebackq tokens=3*" %%a in (`
+  REG QUERY "HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Bioware\Mass Effect Legendary Edition" /v "install dir" 2^> nul
+  `) do (SET _path_mele=%%b)
+
+IF NOT DEFINED _path_mele (
+  ECHO ❕ Looking for game installation.
+  FOR /f "usebackq tokens=3*" %%a in (`
+    REG QUERY "HKEY_LOCAL_MACHINE\SOFTWARE\BioWare\Mass Effectâ„¢ Legendary Edition" /v "install dir" 2^> nul
+    `) do (SET _path_mele=%%b)
+)
+
+IF NOT DEFINED _path_mele (
+  ECHO ❕ Looking for game installation..
+  FOR /f "usebackq tokens=2*" %%a in (`
+    REG QUERY "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 1328670" /v "InstallLocation" 2^> nul
+    `) do (SET _path_mele=%%b)
+)
+
+IF NOT DEFINED _path_mele (
+  ECHO ❕ Looking for game installation...
+  FOR /f "usebackq tokens=2*" %%a in (`
+    REG QUERY "HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\{068668C4-0B89-4431-A749-1829F845DB87}" /v "installlocation" 2^> nul
+    `) do (SET _path_mele=%%b)
+)
+
+IF NOT DEFINED _path_mele (
+  ECHO ❌ %_fRed%Mass Effect Legendary Edition's installation location couldn't be found.%_RESET%
+  SET /p waiter ="❌ Press ENTER to exit."
+  EXIT [/B]
+)
+ECHO ✅ Game installation found at: %_fBWhite%%_bBBlue%%_path_mele%%_RESET%
+
 SET _path_coa1=%_path_mele%Game\ME1\BioGame\CookedPCConsole\Coalesced_INT.bin
 SET _path_bioengine=%_path_mele%Game\ME1\BioGame\Config\BIOEngine.ini
 SET _path_biogame=%_path_mele%Game\ME1\BioGame\Config\BIOGame.ini
 
-ECHO Hello^^! ╰(*°▽°*)╯
 SET /p waiter="Press ENTER to start"
 
 :: CREATE NECASSARY FOLDERS
