@@ -48,4 +48,4 @@ if(Compare-Object @lookForChanges3){
   Copy-Item @applyChanges3 -Confirm
 }
 
-ECHO "✅ File(s) copied!" 
+ECHO "$ENV:_fBGreen`Success!$ENV:_RESET File(s) copied!" 

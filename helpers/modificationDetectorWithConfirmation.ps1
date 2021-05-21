@@ -17,4 +17,4 @@ IF(Compare-Object -ReferenceObject $(Get-Content $file3) -DifferenceObject $(Get
   Copy-Item -Path $file3 -Destination $ENV:_path_biogame -Confirm
 }
 
-ECHO "✅ File(s) copied!" 
+ECHO "$ENV:_fBGreen`Success!$ENV:_RESET File(s) copied!" 

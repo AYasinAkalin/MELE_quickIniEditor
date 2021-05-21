@@ -54,24 +54,10 @@ def foldercrawl():
     return foldercontents
 
 
-print("hello from python!✅❕❌")
-
-
+# print("hello from python!✅❕❌")
 def execute():
-    print("START OF EXECUTE")
-    #'''
     ep = EditorPlus()
     mods = foldercrawl()
     for m in mods:
         ep.import_editor_info(m)
     ep.process_many()
-    #'''
-    print("END OF EXECUTE")
-
-
-if __name__ == '__main__':
-    ''' __name__ == '__main__' check stops following code to execute
-    when this file is called from another Python script'''
-    print("START OF MAIN")
-    execute()
-    print("END OF MAIN")
