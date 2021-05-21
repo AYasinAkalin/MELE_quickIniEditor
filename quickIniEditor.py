@@ -20,5 +20,7 @@ under certain conditions. Read LICENSE.txt for details.\n"
 
 print(licenseNotice)
 process = subprocess.run([".\\helpers\\cli1.bat"])
+if process.returncode != 0:
+    exit()
 worker.execute()
 process = subprocess.run([".\\helpers\\cli2.bat"])

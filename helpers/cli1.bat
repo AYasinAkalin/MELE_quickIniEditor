@@ -39,7 +39,7 @@ IF NOT DEFINED _path_mele (
   ECHO %_fRed%Failure^^!%_RESET% Mass Effect Legendary Edition's installation location couldn't be found.
   ECHO Press any key to exit...
   pause >nul
-  EXIT [/B]
+  EXIT 1
 )
 ECHO %_fBGreen%Success^^!%_RESET% Game installation found at: %_fBWhite%%_bBBlue%%_path_mele%%_RESET%
 
