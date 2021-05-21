@@ -50,7 +50,7 @@ IF /i "%backupFiles%" == "y" (
     :: 7-zip is not available. Using PowerShell to compress
     PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\helpers\zipper.ps1'"
     )
-  ECHO ✅ Backup file created at: %_fBWhite%%_bBBlue%%cd%\Backup\Originals.zip%_RESET%
+  PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\helpers\renameBackupZip.ps1'" 
   ) ELSE (
   :: Remove Backup folder if empty because it won't be used
   RD /Q .\Backup
