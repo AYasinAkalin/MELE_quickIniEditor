@@ -10,7 +10,7 @@ __license__ = "GNU General Public License v3.0"
 __date__ = "2021-05-18"
 
 import sys
-from constants import modFileDelimeter as delim
+from constants import modFileDelimiter as delim
 from editors import Editor, EditorPlus
 from pathlib import Path
 
@@ -54,12 +54,24 @@ def foldercrawl():
     return foldercontents
 
 
-# print("hello from python!✅❕❌")
-if __name__ == '__main__':
-    ''' __name__ == '__main__' check stops following code to execute
-    when this file is called from another Python script'''
+print("hello from python!✅❕❌")
+
+
+def execute():
+    print("START OF EXECUTE")
+    #'''
     ep = EditorPlus()
     mods = foldercrawl()
     for m in mods:
         ep.import_editor_info(m)
     ep.process_many()
+    #'''
+    print("END OF EXECUTE")
+
+
+if __name__ == '__main__':
+    ''' __name__ == '__main__' check stops following code to execute
+    when this file is called from another Python script'''
+    print("START OF MAIN")
+    execute()
+    print("END OF MAIN")

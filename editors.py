@@ -56,7 +56,7 @@ class Editor(object):
             # TODO 006: Throw an exception here
             return False
         m = m.rstrip()  # Clean whitespace at the end if any
-        delimeterIndex = m.find("@[")
+        delimiterIndex = m.find("@[")
         if len(v) == 0 or v.isspace():
             # Could be add new option
             findings["isAddition"] = True
@@ -71,19 +71,19 @@ class Editor(object):
                 findings["willDiscard"] = True
                 # TODO 003: Add an throw exception here
                 pass
-            elif delimeterIndex == -1 and m[-1] != "]":
+            elif delimiterIndex == -1 and m[-1] != "]":
                 # Either a section name is not given or the syntax is wrong
                 findings["willDiscard"] = True
                 # TODO 004: Add an throw exception here
                 pass
             else:
-                sectionName = m[delimeterIndex+2:-1]
+                sectionName = m[delimiterIndex+2:-1]
                 if not sectionName.isspace() and len(sectionName) > 0:
-                    findings["modification"] = m[:delimeterIndex]
+                    findings["modification"] = m[:delimiterIndex]
                     findings["section"] = sectionName
                 else:
                     findings["willDiscard"] = True
-        elif len(m) == 0 or m.isspace() or len(m[:delimeterIndex]) == 0 or m[:delimeterIndex].isspace():
+        elif len(m) == 0 or m.isspace() or len(m[:delimiterIndex]) == 0 or m[:delimiterIndex].isspace():
             # Modification part is empty or there is not key-value pair in there
             findings["willDiscard"] = True
         else:
@@ -91,8 +91,8 @@ class Editor(object):
             findings["vanilla"] = v
             if m.rfind("@[") != -1 and m[-1] == "]":
                 # Mod string has section name attached.
-                findings["modification"] = m[:delimeterIndex]
-                findings["section"] = m[delimeterIndex+2:-1]
+                findings["modification"] = m[:delimiterIndex]
+                findings["section"] = m[delimiterIndex+2:-1]
             else:
                 # Mod string has section no name attached.
                 findings["modification"] = m
