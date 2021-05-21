@@ -9,7 +9,6 @@ __date__ = "2021-05-18"
 
 import sys
 import subprocess
-#from pathlib import Path
 import worker
 assert sys.version_info >= (3, 5)
 
@@ -19,8 +18,7 @@ This program comes with ABSOLUTELY NO WARRANTY.\n\
 This is free software, and you are welcome to modify it , redistribute it\n\
 under certain conditions. Read LICENSE.txt for details.\n"
 
-#p = Path(".")  # Dummy variable so py2exe bundles pathlib
 print(licenseNotice)
-process = subprocess.run([".\\helpers\\cli1.bat"])  # BUGFIX: Change cli.bat to cli1.bat
+process = subprocess.run([".\\helpers\\cli1.bat"])
 worker.execute()
 process = subprocess.run([".\\helpers\\cli2.bat"])

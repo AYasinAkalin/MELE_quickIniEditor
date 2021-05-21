@@ -12,10 +12,6 @@ Set _RESET=[0m
 
 ECHO Hello^^! ╰(*°▽°*)╯
 
-:: BUGFIX: delete later below
-SET "__path_manual=C:\Program Files (x86)\Steam\steamapps\common\Mass Effect Legendary Edition\"
-:: BUGFIX: delete later above
-
 :: OBTAIN ABSOLUTE PATHS TO GAME FOLDER AND FILES
 FOR /f "usebackq tokens=3*" %%a in (`
   REG QUERY "HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Bioware\Mass Effect Legendary Edition" /v "install dir" 2^> nul
@@ -41,13 +37,6 @@ IF NOT DEFINED _path_mele (
     REG QUERY "HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\{068668C4-0B89-4431-A749-1829F845DB87}" /v "installlocation" 2^> nul
     `) do (SET _path_mele=%%b)
 )
-
-:: BUGFIX: delete later below
-IF NOT DEFINED _path_mele (
-  ECHO ❕ Looking for game installation....
-  IF DEFINED __path_manual (SET "_path_mele=%__path_manual%")
-)
-:: BUGFIX: delete later above
 
 IF NOT DEFINED _path_mele (
   ECHO ❌ %_fRed%Mass Effect Legendary Edition's installation location couldn't be found.%_RESET%
@@ -87,15 +76,7 @@ COPY .\Temp\BIOGame.ini .\Temp\BIOGame.ini.BAK >nul
 @ECHO %_path_mele%> .\Temp\_massEffectDirectory.txt
 @ECHO off
 
-::debug::
-echo ❕ Stop point #1: Msg: PYTHON will work next.
-::debug::
-SET /p waiter="Waiting for debugging. Press ENTER to continue.  "
-
-
-
-:: BUGFIX: CUT THE EXECUTION HERE
-:: MAKE CHANGES IN EXTRACTED FILES
-:: python worker.py
+::debug::echo ❕ Stop point #1: Msg: PYTHON will work next.
+::debug::SET /p waiter="Waiting for debugging. Press ENTER to continue.  "
 
 ENDLOCAL
