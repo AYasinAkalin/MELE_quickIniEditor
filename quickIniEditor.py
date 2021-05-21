@@ -13,9 +13,9 @@ import worker
 assert sys.version_info >= (3, 5)
 
 licenseNotice = "\
-MELE_quickIniEditor  Copyright (C) 2021  A. Yasin Akalın\n\
+MELE Quick Ini Editor  Copyright (C) 2021  A. Yasin Akalın\n\
 This program comes with ABSOLUTELY NO WARRANTY.\n\
-This is free software, and you are welcome to modify it , redistribute it\n\
+This is free software, and you are welcome to modify it, redistribute it\n\
 under certain conditions. Read LICENSE.txt for details.\n"
 
 print(licenseNotice)

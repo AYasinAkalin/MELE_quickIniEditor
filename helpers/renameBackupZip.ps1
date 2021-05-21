@@ -7,4 +7,4 @@ WHILE (Test-Path -Path ".\Backup\$fn.zip"){
 	$fn = "$n ($i)"
 }
 Rename-Item -Path .\Backup\Originals.zip -NewName "$fn.zip"
-ECHO "✅ Backup file created at: $ENV:_fBWhite$ENV:_bBBlue$(Get-Location)\Backup\$fn.zip$ENV:_RESET"
+ECHO "$ENV:_fBGreen`Success!$ENV:_RESET Backup file created at: $ENV:_fBWhite$ENV:_bBBlue$(Get-Location)\Backup\$fn.zip$ENV:_RESET"

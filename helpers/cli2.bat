@@ -12,8 +12,6 @@ Set _RESET=[0m
 
 :: RETRIEVE BACK THE PATH TO GAME FOLDER AND FILES
 for /f "tokens=*" %%s in (.\Temp\_massEffectDirectory.txt) do SET _path_mele=%%s
-ECHO %_path_mele%
-pause
 
 SET _path_coa1=%_path_mele%Game\ME1\BioGame\CookedPCConsole\Coalesced_INT.bin
 SET _path_bioengine=%_path_mele%Game\ME1\BioGame\Config\BIOEngine.ini
@@ -37,7 +35,7 @@ PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\helpers\modificatio
 
 :: PRODUCE A BACKUP .ZIP FILE
 SET backupFiles="n"
-SET /p backupFiles="❔ Would you like to backup your original files as a .zip file? [y|n]: "
+SET /p backupFiles="Would you like to backup your original files as a .zip file? [y|n]: "
 :: /i parameter is for case insensitive comparison
 IF /i "%backupFiles%" == "y" (
   MOVE .\Temp\Coalesced_INT.bin.BAK %_path_zipContent%CookedPCConsole\Coalesced_INT.bin >nul
@@ -53,8 +51,8 @@ IF /i "%backupFiles%" == "y" (
   PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\helpers\renameBackupZip.ps1'" 
   ) ELSE (
   :: Remove Backup folder if empty because it won't be used
-  RD /Q .\Backup
-  ECHO ✅ Skipping backup
+  RD /Q .\Backup >nul 2>nul
+  ECHO %_fBGreen%Success^^!%_RESET% Skipping backup
   )
 
 ::debug::echo ❕ Stop point #3: Msg: Work work is done. Will clean temp. files then exit.
@@ -63,6 +61,7 @@ IF /i "%backupFiles%" == "y" (
 :: REMOVE TEMPORARY FILES AND FOLDERS
 RD /S /Q .\Temp
 
-ECHO %_fBGreen%✅ All done^^!%_RESET%
-SET /p close = "Press ENTER to close. "
+ECHO %_fBGreen%All done^^!%_RESET%
+ECHO Press any key to close...
+pause >nul
 ENDLOCAL
