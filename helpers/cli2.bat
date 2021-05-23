@@ -8,6 +8,7 @@ Set _fBGreen=[92m
 Set _fBWhite=[97m
 Set _bBBlue=[104m
 Set _fRed=[31m
+Set _fYellow=[33m
 Set _RESET=[0m
 
 :: RETRIEVE BACK THE PATH TO GAME FOLDER
