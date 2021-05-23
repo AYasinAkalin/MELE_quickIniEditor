@@ -8,8 +8,10 @@ __license__ = "GNU General Public License v3.0"
 __date__ = "2021-05-18"
 
 import sys
+from os import system
 import subprocess
 import worker
+import colors
 assert sys.version_info >= (3, 5)
 
 licenseNotice = "\
@@ -22,5 +24,17 @@ print(licenseNotice)
 process = subprocess.run([".\\helpers\\cli1.bat"])
 if process.returncode != 0:
     exit()
-worker.execute()
+try:
+    worker.execute()
+except (worker.ModFolderNotFoundError,
+        worker.ModFolderIsCorruptedError) as e:
+    print(colors.Style.RED + "Failure!" + colors.Style.RESET, end=' ')
+    print(e)
+    print("Press any key to exit...")
+    system("pause >nul")
+    exit()
+except worker.NoModificationsMadeError as e:
+    print(colors.Style.YELLOW + "Warning!" + colors.Style.RESET, end=' ')
+    print(e)
+    pass
 process = subprocess.run([".\\helpers\\cli2.bat"])
