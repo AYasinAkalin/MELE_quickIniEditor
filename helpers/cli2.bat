@@ -10,15 +10,17 @@ Set _bBBlue=[104m
 Set _fRed=[31m
 Set _RESET=[0m
 
-:: RETRIEVE BACK THE PATH TO GAME FOLDER AND FILES
+:: RETRIEVE BACK THE PATH TO GAME FOLDER
 for /f "tokens=*" %%s in (.\Temp\_massEffectDirectory.txt) do SET _path_mele=%%s
 
+:: DEFINE FILES PATHS
+:: Mass Effect 1 files
 SET _path_coa1=%_path_mele%Game\ME1\BioGame\CookedPCConsole\Coalesced_INT.bin
-SET _path_bioengine=%_path_mele%Game\ME1\BioGame\Config\BIOEngine.ini
-SET _path_biogame=%_path_mele%Game\ME1\BioGame\Config\BIOGame.ini
+SET _path_bioengine1=%_path_mele%Game\ME1\BioGame\Config\BIOEngine.ini
+SET _path_biogame1=%_path_mele%Game\ME1\BioGame\Config\BIOGame.ini
 
 :: DEFINE DIRECTORIES REGARDING BACKUP 
-SET _path_zipContent=".\Temp\z\Mass Effect Legendary Edition\Game\ME1\BioGame\"
+SET _path_zipContent_ME1=".\Temp\z\Mass Effect Legendary Edition\Game\ME1\BioGame\"
 SET _path_zipFile=.\Backup\Originals.zip
 
 ::debug::echo ❕ Stop point #2. Msg: PYTHON's job is done. 
@@ -38,9 +40,9 @@ SET backupFiles="n"
 SET /p backupFiles="Would you like to backup your original files as a .zip file? [y|n]: "
 :: /i parameter is for case insensitive comparison
 IF /i "%backupFiles%" == "y" (
-  MOVE .\Temp\Coalesced_INT.bin.BAK %_path_zipContent%CookedPCConsole\Coalesced_INT.bin >nul
-  MOVE .\Temp\BIOEngine.ini.BAK %_path_zipContent%Config\BIOEngine.ini >nul
-  MOVE .\Temp\BIOGame.ini.BAK %_path_zipContent%Config\BIOGame.ini >nul
+  MOVE .\Temp\ME1\Coalesced_INT.bin.BAK %_path_zipContent_ME1%CookedPCConsole\Coalesced_INT.bin >nul
+  MOVE .\Temp\ME1\BIOEngine.ini.BAK %_path_zipContent_ME1%Config\BIOEngine.ini >nul
+  MOVE .\Temp\ME1\BIOGame.ini.BAK %_path_zipContent_ME1%Config\BIOGame.ini >nul
   IF EXIST .\7zip\7za.exe (
     :: Using 7-zip to compress
     .\7zip\7za.exe a %_path_zipFile% .\Temp\z\* >nul

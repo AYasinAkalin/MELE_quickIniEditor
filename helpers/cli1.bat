@@ -12,7 +12,7 @@ Set _RESET=[0m
 
 ECHO Hello^^! \(*°v°*)/
 
-:: OBTAIN ABSOLUTE PATHS TO GAME FOLDER AND FILES
+:: OBTAIN ABSOLUTE PATH TO GAME FOLDER
 FOR /f "usebackq tokens=3*" %%a in (`
   REG QUERY "HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Bioware\Mass Effect Legendary Edition" /v "install dir" 2^> nul
   `) do (SET _path_mele=%%b)
@@ -43,30 +43,39 @@ IF NOT DEFINED _path_mele (
 )
 ECHO %_fBGreen%Success^^!%_RESET% Game installation found at: %_fBWhite%%_bBBlue%%_path_mele%%_RESET%
 
+:: DEFINE FILES' ABSOLUTE PATHS
+:: Mass Effect 1 files
 SET _path_coa1=%_path_mele%Game\ME1\BioGame\CookedPCConsole\Coalesced_INT.bin
-SET _path_bioengine=%_path_mele%Game\ME1\BioGame\Config\BIOEngine.ini
-SET _path_biogame=%_path_mele%Game\ME1\BioGame\Config\BIOGame.ini
+SET _path_bioengine1=%_path_mele%Game\ME1\BioGame\Config\BIOEngine.ini
+SET _path_biogame1=%_path_mele%Game\ME1\BioGame\Config\BIOGame.ini
 
 SET /p waiter="Press ENTER to start"
 
 :: CREATE NECASSARY FOLDERS
-SET _path_zipContent=".\Temp\z\Mass Effect Legendary Edition\Game\ME1\BioGame\"
+SET _path_zipContent_ME1=".\Temp\z\Mass Effect Legendary Edition\Game\ME1\BioGame\"
 SET _path_zipFile=.\Backup\Originals.zip
-MD Temp\unpacked_coalescend %_path_zipContent%CookedPCConsole\ %_path_zipContent%Config\ .\Backup >nul 2>nul
+MD Temp\ME1\unpacked_coalescend Temp\ME2\unpacked_coalescend Temp\ME3\unpacked_coalescend >nul 2>nul
+MD %_path_zipContent_ME1%CookedPCConsole\ %_path_zipContent_ME1%Config\ .\Backup >nul 2>nul
 
+:: IMPORT FILES INTO THE PROGRAM
 :: Take copy of Coalesced_INT.bin, BIOEngine.ini, BIOGame.ini quietly
 :: Do not directly modify on original files! 
-COPY "%_path_coa1%" .\Temp\Coalesced_INT.bin >nul
-COPY "%_path_bioengine%" .\Temp\BIOEngine.ini >nul
-COPY "%_path_biogame%" .\Temp\BIOGame.ini >nul
+COPY "%_path_coa1%" .\Temp\ME1\Coalesced_INT.bin >nul
+COPY "%_path_bioengine1%" .\Temp\ME1\BIOEngine.ini >nul
+COPY "%_path_biogame1%" .\Temp\ME1\BIOGame.ini >nul
 
 :: UNPACK COALESCED_INT.BIN
-.\LECoal\LECoal.exe unpack .\Temp\Coalesced_INT.bin .\Temp\unpacked_coalescend >nul
+:: Mass Effect 1's coalesced
+.\LECoal\LECoal.exe unpack .\Temp\ME1\Coalesced_INT.bin .\Temp\ME1\unpacked_coalescend >nul
 
-:: SAVE COPIED FILES AS BACKUP QUIETLY
-COPY .\Temp\Coalesced_INT.bin .\Temp\Coalesced_INT.bin.BAK >nul
-COPY .\Temp\BIOEngine.ini .\Temp\BIOEngine.ini.BAK >nul
-COPY .\Temp\BIOGame.ini .\Temp\BIOGame.ini.BAK >nul
+:: TAKE A COPY OF IMPORTED FILES
+:: Creating a second copy of imported files quietly.
+:: This second copy will be used to detect any changes made by user
+
+:: Mass Effect 1 files
+COPY .\Temp\ME1\Coalesced_INT.bin .\Temp\ME1\Coalesced_INT.bin.BAK >nul
+COPY .\Temp\ME1\BIOEngine.ini .\Temp\ME1\BIOEngine.ini.BAK >nul
+COPY .\Temp\ME1\BIOGame.ini .\Temp\ME1\BIOGame.ini.BAK >nul
 
 :: EXPORT GAME INSTALLATION PATH TO FILE FOR EXTERNAL SCRIPTS
 @ECHO on

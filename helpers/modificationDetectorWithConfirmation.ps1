@@ -10,11 +10,11 @@ IF(Compare-Object -ReferenceObject $(Get-Content $file1) -DifferenceObject $(Get
 }
 
 IF(Compare-Object -ReferenceObject $(Get-Content $file2) -DifferenceObject $(Get-Content $file2Backup)){
-  Copy-Item -Path $file2 -Destination $ENV:_path_bioengine -Confirm
+  Copy-Item -Path $file2 -Destination $ENV:_path_bioengine1 -Confirm
 }
 
 IF(Compare-Object -ReferenceObject $(Get-Content $file3) -DifferenceObject $(Get-Content $file3Backup)){
-  Copy-Item -Path $file3 -Destination $ENV:_path_biogame -Confirm
+  Copy-Item -Path $file3 -Destination $ENV:_path_biogame1 -Confirm
 }
 
 ECHO "$ENV:_fBGreen`Success!$ENV:_RESET File(s) copied!" 

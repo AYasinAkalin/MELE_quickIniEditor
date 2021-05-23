@@ -25,7 +25,7 @@ $lookForChanges2 = @{
 
 $applyChanges2 = @{
   Path = $file2
-  Destination = $ENV:_path_bioengine
+  Destination = $ENV:_path_bioengine1
 }
 
 if(Compare-Object @lookForChanges2){
@@ -41,7 +41,7 @@ $lookForChanges3 = @{
 }
 $applyChanges3 = @{
 	Path = $file3
-	Destination = $ENV:_path_biogame
+	Destination = $ENV:_path_biogame1
 }
 
 if(Compare-Object @lookForChanges3){
