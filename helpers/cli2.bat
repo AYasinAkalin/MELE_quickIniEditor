@@ -14,11 +14,21 @@ Set _RESET=[0m
 :: RETRIEVE BACK THE PATH TO GAME FOLDER
 for /f "tokens=*" %%s in (.\Temp\_massEffectDirectory.txt) do SET _path_mele=%%s
 
-:: DEFINE FILES PATHS
-:: Mass Effect 1 files
-SET _path_coa1=%_path_mele%Game\ME1\BioGame\CookedPCConsole\Coalesced_INT.bin
-SET _path_bioengine1=%_path_mele%Game\ME1\BioGame\Config\BIOEngine.ini
-SET _path_biogame1=%_path_mele%Game\ME1\BioGame\Config\BIOGame.ini
+:: DEFINE TEMP FILES' RELATIVE PATHS
+:: Mass Effect 1 temp files
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_coa1.txt) do SET _path_temp_coa1=%%s
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_bioengine1.txt) do SET _path_temp_bioengine1=%%s
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_biogame1.txt) do SET _path_temp_biogame1=%%s
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_gamersettings1.txt) do SET _path_temp_gamersettings1=%%s
+:: Mass Effect 2 temp files
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_coa2.txt) do SET _path_temp_coa2=%%s
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_biocredits2.txt) do SET _path_temp_biocredits2=%%s
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_bioengine2.txt) do SET _path_temp_bioengine2=%%s
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_biogame2.txt) do SET _path_temp_biogame2=%%s
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_bioinput2.txt) do SET _path_temp_bioinput2=%%s
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_bioui2.txt) do SET _path_temp_bioui2=%%s
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_bioweapon2.txt) do SET _path_temp_bioweapon2=%%s
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_gamersettings2.txt) do SET _path_temp_gamersettings2=%%s
 
 :: DEFINE DIRECTORIES REGARDING BACKUP 
 SET _path_zipContent_ME1=".\Temp\z\Mass Effect Legendary Edition\Game\ME1\BioGame\"
@@ -31,10 +41,7 @@ SET _path_zipFile=.\Backup\Originals.zip
 .\LECoal\LECoal.exe pack .\Temp\unpacked_coalescend .\Temp\Coalesced_INT.bin >nul
 
 :: DETECT MODIFIED FILES AND APPLY THE CHANGES
-:: This option doesn't ask user for confirmation
 PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\helpers\modificationDetector.ps1'"
-:: Disabled option below asks user for confirmation to overwrite for each file
-::PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\helpers\modificationDetectorWithConfirmation.ps1'"
 
 :: PRODUCE A BACKUP .ZIP FILE
 SET backupFiles="n"

@@ -1,4 +1,7 @@
-﻿$file1 = ".\Temp\Coalesced_INT.bin"
+﻿<# THIS FILE IS NOT SUPPORTED. AND SHOULD NOT BE USED.
+IT WILL BE KEPT AS AN EXAMPLE OF HOW TO DO THINGS DIFFERENTLY ON POWERSHELL#>
+
+$file1 = ".\Temp\Coalesced_INT.bin"
 $file1Backup = ".\Temp\Coalesced_INT.bin.BAK"
 $file2 = ".\Temp\BIOEngine.ini"
 $file2Backup = ".\Temp\BIOEngine.ini.BAK"
