@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-"""quickIniEditor.py
-Starting point of the program. Created for to be able to bundle the program."""
+"""gamelanguage.py"""
 __version__ = "1.1b"
 __author__ = "A. Yasin Akalın"
 __credits__ = ""
@@ -11,10 +10,6 @@ import winreg
 from pathlib import Path
 import configparser as cp
 import constants
-
-# TODO: Add new function to prompt user to CONFIRM language and
-# coalesced_*.bin selection for Mass Effect 2.
-# Allow the user to change coalesced_*.bin selection
 
 
 class GameLang(object):
@@ -120,23 +115,11 @@ class GameLang(object):
     def _coaSuffix(self):
         return constants.lang_locale_map[self.lang_locale]["coaSuffix"]
 
+    def setCoaSuffix(self, newSuffix):
+        self.coalescedSuffix = newSuffix
+
 
 # DEBUG:gameInfo = GameLang()
 # DEBUG:print(gameInfo.getLangLocale())
 # DEBUG:print(gameInfo.getLanguage())
 # DEBUG:print(gameInfo.getCoalescedSuffix())
-
-def detect():
-    gameInfo = GameLang()
-    # print("Game language is:", gameInfo.getLanguage())
-    p = Path("./Temp/")
-    if not p.exists():
-        p.mkdir()
-        # print("Python created Temp folder because it wasn't there")
-    with open(p / "_massEffectCoaSuffix.txt", "w") as f:
-        f.write(gameInfo.getCoalescedSuffix())
-    p = Path("./relpaths")
-    with open(p / "_path_temp_coa2.txt", "w") as f:
-        f.write(".\\Temp\\ME2\\Coalesced_"
-                + gameInfo.getCoalescedSuffix()
-                + ".bin")
