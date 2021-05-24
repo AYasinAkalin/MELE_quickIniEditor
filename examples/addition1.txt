@@ -1,0 +1,30 @@
+Add the line below explanation to MOD\ME1\ModsToGamerSettings.txt
+
+When you run the tool it will automatically try to add
+what you wrote because there is nothing BEFORE special delimiter ';;' 
+
+1st line) First it will add a section named 'URL' because there is no such section inside
+GamerSettings.ini
+Then it will add 'NewOption=False1' under 'URL' section.
+
+2nd line) Then it will look for a section 'A.New.Section'. If there is no section,
+it will create it, next add the line 'NewOption=Fals2e' under 'A.New.Section'
+
+3rd line) Now the program again look for the section 'A.New.Section'. This time 
+it will find it because we definitely created it just before.
+It will try to add 'NewOption=Fals2e' under that section but won't because it will
+detect an exact line there.
+That means you can't add duplicates. Program do not create duplicates even if you try hard.
+
+4th line) Program will create a section named 'B.New.Section', if it isn't present.
+Then it will put 'Number=9995.12f' under this new section.
+
+These are addition operations because there is nothing before ';;'.
+
+You must add a section name using '@[SectionN]' syntax at the end the line
+if you want to make addition.
+---------------------------------------------------------------------------------------
+;;NewOption=False1@[URL]
+;;NewOption=Fals2e@[A.New.Section]
+;;NewOption=Fals2e@[A.New.Section]
+;;Number=9995.12f@[B.New.Section]

@@ -1,0 +1,10 @@
+Add the line below explanation to MOD\ME2\ModsToBIOGame.txt
+When you run the tool it will delete 'MaxScore' with value '500'
+under the section 'SFXGame.SFXDifficulty_Level6' from Mass Effect 2's BIOGame.ini.
+
+There are other "MaxScore" in ME2's BIOGame.ini, but they won't be touched
+because we explicitly stated a section name for deletion.
+
+This is a deletion because there is between ';;' and '@['
+------------------------------------------------------------------------
+MaxScore=500;;@[SFXGame.SFXDifficulty_Level6]
