@@ -101,7 +101,7 @@ IF(Compare-Object `
 
 # Complete the process by printing out a message
 IF(Test-Path -Path ".\Temp\_flag_no_modifications_made" -PathType leaf){
-	ECHO "$ENV:_fYellow`Warning!$ENV:_RESET`No file(s) copied!"
+	ECHO "$ENV:_fYellow`Warning!$ENV:_RESET No file(s) copied!"
 } ELSE{
-	ECHO "$ENV:_fBGreen`Success!$ENV:_RESET`File(s) copied!"	
+	ECHO "$ENV:_fBGreen`Success!$ENV:_RESET File(s) copied!"	
 }
