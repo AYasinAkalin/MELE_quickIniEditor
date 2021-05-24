@@ -80,8 +80,10 @@ IF EXIST .\Temp\_massEffectCoaSuffix.txt (
 :: When exited with code 2, an external python script will run
 :: It will find the language, and then run this batch script again
 IF NOT DEFINED _coa2_suffix (
-  ::debug::  echo ❕ Stop point #0: Msg: gamelanguage.py will work next.
-  ::debug::  SET /p waiter="Waiting for debugging. Press ENTER to continue.  "
+Rem :: are not used here for comments because when they are used, batch threw an error msg
+Rem look here for more info https://stackoverflow.com/q/19843849
+Rem debug:: echo ❕ Stop point #0: Msg: gamelanguage.py will work next.
+Rem debug:: SET /p waiter="Waiting for debugging. Press ENTER to continue.  "
   EXIT 2
 )
 
