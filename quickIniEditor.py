@@ -12,6 +12,7 @@ from os import system
 import subprocess
 import worker
 import colors
+import gamelanguage
 assert sys.version_info >= (3, 5)
 
 licenseNotice = "\
@@ -21,9 +22,17 @@ This is free software, and you are welcome to modify it, redistribute it\n\
 under certain conditions. Read LICENSE.txt for details.\n"
 
 print(licenseNotice)
+
 process = subprocess.run([".\\helpers\\cli1.bat"])
-if process.returncode != 0:
+if process.returncode == 1:
+    # Code 1 is game is not found. Terminate.
     exit()
+elif process.returncode == 2:
+    # Code 2 is game language is not known
+    # Call the python script, then rerun the batch script
+    gamelanguage.detect()
+    process = subprocess.run([".\\helpers\\cli1.bat"])
+
 try:
     worker.execute()
 except (worker.ModFolderNotFoundError,
