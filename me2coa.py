@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """me2coa.py"""
-__version__ = "1.1b"
+__version__ = "1.0.2"
 __author__ = "A. Yasin Akalın"
 __credits__ = ""
 __license__ = "GNU General Public License v3.0"

@@ -1,4 +1,4 @@
-'''constants.py'''
+'''Some constants used by Python scripts are defined here'''
 modFileDelimiter = ";;"
 lang_locale_map = {
     "de_DE": {"coaSuffix": "DEU", "language": "German"},

@@ -1,3 +1,9 @@
+'''Self working script to populate MOD folder'''
+__version__ = "1.0.2"
+__author__ = "A. Yasin Akalın"
+__credits__ = ""
+__license__ = "GNU General Public License v3.0"
+__date__ = "2021-05-23"
 from pathlib import Path
 
 # Info: https://docs.python.org/3/library/pathlib.html#pathlib.Path.touch

@@ -1,3 +1,18 @@
+'''Self working script to populate relpaths folder.
+When run, existing files are kept.
+
+It fills up `relpaths` folder with files that needs to be filled manually.
+These files are used to define some variables in .bat scripts.
+
+Reason of creating such system is that said variables are defined
+in more than 1 batch file. Because their values are the same and
+those batch files can't interact using environment variables,
+a single place to contain the values born hence this commit.'''
+__version__ = "1.0.2"
+__author__ = "A. Yasin Akalın"
+__credits__ = ""
+__license__ = "GNU General Public License v3.0"
+__date__ = "2021-05-24"
 from pathlib import Path
 
 # Info: https://docs.python.org/3/library/pathlib.html#pathlib.Path.touch

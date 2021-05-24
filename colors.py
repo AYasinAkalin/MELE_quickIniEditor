@@ -1,5 +1,10 @@
 """ASCII text manipulation codes are defined here.
 Credits: https://stackoverflow.com/a/54955094"""
+__version__ = "1.0.2"
+__author__ = "A. Yasin Akalın"
+__credits__ = "SimpleBinary https://stackoverflow.com/users/11073514/simplebinary"
+__license__ = "GNU General Public License v3.0"
+__date__ = "2021-05-23"
 from os import system
 system("")
 
