@@ -8,39 +8,61 @@ Set _fBGreen=[92m
 Set _fBWhite=[97m
 Set _bBBlue=[104m
 Set _fRed=[31m
+Set _fYellow=[33m
 Set _RESET=[0m
 
-:: RETRIEVE BACK THE PATH TO GAME FOLDER AND FILES
-for /f "tokens=*" %%s in (.\Temp\_massEffectDirectory.txt) do SET _path_mele=%%s
+:: RETRIEVE BACK THE COA SUFFIX (NEEDED FOR MASS EFFECT 2's COA FILE BACKUP)
+FOR /f "tokens=*" %%s in (.\Temp\_massEffectCoaSuffix.txt) do SET _coa2_suffix=%%s
 
-SET _path_coa1=%_path_mele%Game\ME1\BioGame\CookedPCConsole\Coalesced_INT.bin
-SET _path_bioengine=%_path_mele%Game\ME1\BioGame\Config\BIOEngine.ini
-SET _path_biogame=%_path_mele%Game\ME1\BioGame\Config\BIOGame.ini
+:: DEFINE TEMP FILES' RELATIVE PATHS
+:: Mass Effect 1 temp files
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_coa1.txt) do SET _path_temp_coa1=%%s
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_bioengine1.txt) do SET _path_temp_bioengine1=%%s
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_biogame1.txt) do SET _path_temp_biogame1=%%s
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_gamersettings1.txt) do SET _path_temp_gamersettings1=%%s
+:: Mass Effect 2 temp files
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_coa2.txt) do SET _path_temp_coa2=%%s
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_biocredits2.txt) do SET _path_temp_biocredits2=%%s
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_bioengine2.txt) do SET _path_temp_bioengine2=%%s
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_biogame2.txt) do SET _path_temp_biogame2=%%s
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_bioinput2.txt) do SET _path_temp_bioinput2=%%s
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_bioui2.txt) do SET _path_temp_bioui2=%%s
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_bioweapon2.txt) do SET _path_temp_bioweapon2=%%s
+FOR /f "tokens=*" %%s in (.\relpaths\_path_temp_gamersettings2.txt) do SET _path_temp_gamersettings2=%%s
 
 :: DEFINE DIRECTORIES REGARDING BACKUP 
-SET _path_zipContent=".\Temp\z\Mass Effect Legendary Edition\Game\ME1\BioGame\"
-SET _path_zipFile=.\Backup\Originals.zip
+FOR /f "tokens=*" %%s in (.\relpaths\_path_zipContent_ME1.txt) do SET _path_zipContent_ME1=%%s
+FOR /f "tokens=*" %%s in (.\relpaths\_path_zipContent_ME2.txt) do SET _path_zipContent_ME2=%%s
+FOR /f "tokens=*" %%s in (.\relpaths\_path_zipFile.txt) do SET _path_zipFile=%%s
 
 ::debug::echo ❕ Stop point #2. Msg: PYTHON's job is done. 
 ::debug::SET /p waiter="Waiting for debugging. Press ENTER to continue. "
 
 :: REPACK COALESCED_INT.BIN
-.\LECoal\LECoal.exe pack .\Temp\unpacked_coalescend .\Temp\Coalesced_INT.bin >nul
+.\LECoal\LECoal.exe pack .\Temp\ME1\unpacked_coalescend %_path_temp_coa1% >nul
+.\LECoal\LECoal.exe pack .\Temp\ME2\unpacked_coalescend %_path_temp_coa2% >nul
 
 :: DETECT MODIFIED FILES AND APPLY THE CHANGES
-:: This option doesn't ask user for confirmation
 PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\helpers\modificationDetector.ps1'"
-:: Disabled option below asks user for confirmation to overwrite for each file
-::PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\helpers\modificationDetectorWithConfirmation.ps1'"
 
 :: PRODUCE A BACKUP .ZIP FILE
 SET backupFiles="n"
 SET /p backupFiles="Would you like to backup your original files as a .zip file? [y|n]: "
 :: /i parameter is for case insensitive comparison
 IF /i "%backupFiles%" == "y" (
-  MOVE .\Temp\Coalesced_INT.bin.BAK %_path_zipContent%CookedPCConsole\Coalesced_INT.bin >nul
-  MOVE .\Temp\BIOEngine.ini.BAK %_path_zipContent%Config\BIOEngine.ini >nul
-  MOVE .\Temp\BIOGame.ini.BAK %_path_zipContent%Config\BIOGame.ini >nul
+  MOVE "%_path_temp_coa1%.BAK" "%_path_zipContent_ME1%CookedPCConsole\Coalesced_INT.bin" >nul
+  MOVE "%_path_temp_bioengine1%.BAK" "%_path_zipContent_ME1%Config\BIOEngine.ini" >nul
+  MOVE "%_path_temp_biogame1%.BAK" "%_path_zipContent_ME1%Config\BIOGame.ini" >nul
+  MOVE "%_path_temp_gamersettings1%.BAK" "%_path_zipContent_ME1%Config\GamerSettins.ini" >nul
+  MOVE "%_path_temp_coa2%.BAK" "%_path_zipContent_ME2%CookedPCConsole\Coalesced_%_coa2_suffix%.bin" >nul
+  MOVE "%_path_temp_biocredits2%.BAK" "%_path_zipContent_ME2%Config\BIOCredits.ini" >nul
+  MOVE "%_path_temp_bioengine2%.BAK" "%_path_zipContent_ME2%Config\BIOEngine.ini" >nul
+  MOVE "%_path_temp_biogame2%.BAK" "%_path_zipContent_ME2%Config\BIOGame.ini" >nul
+  MOVE "%_path_temp_bioinput2%.BAK" "%_path_zipContent_ME2%Config\BIOInput.ini" >nul
+  MOVE "%_path_temp_bioui2%.BAK" "%_path_zipContent_ME2%Config\BIOUI.ini" >nul
+  MOVE "%_path_temp_bioweapon2%.BAK" "%_path_zipContent_ME2%Config\BIOWeapon.ini" >nul
+  MOVE "%_path_temp_gamersettings2%.BAK" "%_path_zipContent_ME2%Config\GamerSettings.ini" >nul
+
   IF EXIST .\7zip\7za.exe (
     :: Using 7-zip to compress
     .\7zip\7za.exe a %_path_zipFile% .\Temp\z\* >nul

@@ -7,7 +7,9 @@ setup(
     console=["quickIniEditor.py"],
     data_files=[("helpers", glob.glob("helpers\\*.ps1")),
                 ("helpers", glob.glob("helpers\\*.bat")),
-                ("MOD", glob.glob("MOD\\*.txt")),
+                ("MOD\\ME1", glob.glob("MOD\\ME1\\*.txt")),
+                ("MOD\\ME2", glob.glob("MOD\\ME2\\*.txt")),
+                ("relpaths", glob.glob("relpaths\\*.txt")),
                 ("examples", glob.glob("examples\\*.txt")),
                 ("7zip", glob.glob("7zip\\*.txt")),
                 ("7zip", glob.glob("7zip\\*.dll")),
@@ -20,5 +22,5 @@ setup(
                 ("7zip\\Far", ["7zip\\Far\\7zToFar.ini", "7zip\\Far\\far7z.reg", "7zip\\Far\\far7z.txt"]),
                 ("LECoal", glob.glob("LECoal\\*.dll")),
                 ("LECoal", ["LECoal\\LECoal.exe", "LECoal\\README.md", "LECoal\\LECoal.pdb"]),
-                (".", ["LICENSE", "README.md", "constants.py", "editors.py", "worker.py", "vcruntime140.dll"])],
+                (".", ["LICENSE", "README.md", "constants.py", "editors.py", "worker.py", "vcruntime140.dll", "colors.py", "gamelanguage.py", "me2coa.py"])],
 )
