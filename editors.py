@@ -42,6 +42,7 @@ class Editor(object):
             "isAddition": False,
             "isSnipeModification": False,
             "isDeletion": False,
+            "isSnipeDeletion": False,
             "vanilla": "",
             "modification": "",
             "section": ""
