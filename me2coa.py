@@ -59,7 +59,11 @@ def confirmcoafile(gameLangObj):
         while selection not in range(1, 6):
             if selection != "Shepard must choose an ending!":
                 print(warn, "Unrecognized answer. Your response should be between 1-5.")
-            selection = int(input("Select on of the file from the table [1|2|3|4|5]: "))
+            _input = input("Select on of the file from the table [1|2|3|4|5]: ")
+            if _input.isdecimal():
+                selection = int(_input)
+            else:
+                selection = 0
         suffix = constants.coa_suffix_map[selection]
         gameLangObj.setCoaSuffix(suffix)
         print(
@@ -77,13 +81,13 @@ def printtable():
     print("{}{:46}{}".format(
         style[0], "", style[1])
     )
-    print("|{}{:^21}||{:^21}{}|".format(
+    print("|{}{:^26}||{:^16}{}|".format(
         style[0], headers[0], headers[1], style[1])
     )
     # Print rows
     for selection, coa in enumerate(coalFiles, start=1):
         if selection == 5:
             print(style[0], end='')
-        print("|{:^21}||{:^21}|".format(coa, selection))
+        print("|{:^26}||{:^16}|".format(coa, selection))
         if selection == 5:
-            print(style[1], end='')
+            print(style[1])
