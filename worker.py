@@ -50,8 +50,7 @@ If your .txt files are not empty:\n\
   make sure that you put '@[ASectionName]' at the end of the line.\n\
   Change 'ASectionName' as you'd like."
         super(NoModificationsMadeError, self).__init__(self.message)
-        with open("./Temp/_flag_no_modifications_made", "w") as f:
-            pass
+        Path("./Temp/_flag_no_modifications_made").touch()
 
 
 def makepathfromname(txtFileName, gameNameAlias):
