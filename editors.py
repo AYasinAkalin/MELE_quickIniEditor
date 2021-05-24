@@ -4,7 +4,7 @@ cls Editor parses content of a single `.txt` file at ./MOD/ directory
     and apply changes to respective temporary copy of original `.ini` file.
 cls EditorPlus parses several files given at it, changes several `.ini` files.
 """
-__version__ = "1.0"
+__version__ = "1.1"
 __author__ = "A. Yasin Akalın"
 __credits__ = ""
 __license__ = "GNU General Public License v3.0"
@@ -40,6 +40,8 @@ class Editor(object):
         findings = {
             "willDiscard": False,
             "isAddition": False,
+            "isSnipeModification": False,
+            "isDeletion": False,
             "vanilla": "",
             "modification": "",
             "section": ""
@@ -85,7 +87,11 @@ class Editor(object):
                     findings["willDiscard"] = True
         elif len(m) == 0 or m.isspace() or len(m[:delimiterIndex]) == 0 or m[:delimiterIndex].isspace():
             # Modification part is empty or there is not key-value pair in there
-            findings["willDiscard"] = True
+            findings["isDeletion"] = True
+            findings["vanilla"] = v
+            if m.rfind("@[") != -1 and m[-1] == "]":
+                findings["section"] = m[delimiterIndex+2:-1]
+                findings["isSnipeDeletion"] = True
         else:
             # Standard single line modification. There is vanilla string. There is mod string.
             findings["vanilla"] = v
@@ -93,6 +99,7 @@ class Editor(object):
                 # Mod string has section name attached.
                 findings["modification"] = m[:delimiterIndex]
                 findings["section"] = m[delimiterIndex+2:-1]
+                findings["isSnipeModification"] = True
             else:
                 # Mod string has section no name attached.
                 findings["modification"] = m
@@ -113,6 +120,145 @@ class Editor(object):
                 self._add_option(dic["section"], dic["modification"])
                 continue
 
+            if dic["isDeletion"]:
+                index = self.fileContent.find(dic["vanilla"])
+                if index != -1 and self.fileContent[index+len(dic["vanilla"])] == "\n":
+                    # Status: Proceeding with deletion
+                    # Reason: Given vanilla string's exact copy is found
+                    self.fileContent = self.fileContent.replace(
+                        "\n"+dic["vanilla"], dic["modification"])
+                elif index != -1:
+                    # Status: Omitting deletion
+                    # Reason: Given vanilla string is found but original value is longer
+                    pass
+                else:
+                    # Status: Omitting deletion
+                    # Reason: Given vanilla line is not found
+                    pass
+                continue
+
+            if dic["isSnipeDeletion"]:
+                thisSection = self._find_section(dic["section"])
+                if thisSection == -1:
+                    # TODO: Section not found, raise error
+                    # DEBUG
+                    # print("Section", dic["section"], "is not found!")
+                    continue
+                nextSection = self.__go_to_next_section(thisSection)
+                if nextSection > thisSection:
+                    # Next section is found. Searching as usual.
+                    iRelative = self.fileContent[thisSection:nextSection].find(
+                        dic["vanilla"])
+                else:
+                    # Current section is the last section. Searching until end of file.
+                    iRelative = self.fileContent[thisSection:].find(
+                        dic["vanilla"])
+                # An index is found but it is relative, to section header's pos
+                if iRelative != -1 and self.fileContent[thisSection+iRelative+len(dic["vanilla"])] == "\n":
+                    # Status: Proceeding with deletion
+                    # Reason: Given vanilla string's exact copy in given
+                    #   section is found
+                    # DEBUG
+                    # print("All checks are done. Proceeding to deletion.")
+                    if nextSection > thisSection:
+                        # Split fileContent into three parts
+                        # make deletion in the middle part
+                        # then combine all
+                        self.fileContent = self.fileContent[:thisSection] \
+                            + self.fileContent[thisSection:nextSection].replace(
+                                "\n"+dic["vanilla"], dic["modification"]) \
+                            + self.fileContent[nextSection:]
+                    else:
+                        # Split fileContent into two
+                        # make deletion in the last part
+                        # then combine
+                        self.fileContent = self.fileContent[:thisSection] \
+                            + self.fileContent[thisSection:].replace(
+                                "\n"+dic["vanilla"], dic["modification"])
+                    # DEBUG
+                    # print("Deletion done!")
+                elif iRelative != -1:
+                    # Status: Omitting deletion
+                    # Reason: Given vanilla string in given section is found
+                    #   but original value is longer
+                    # DEBUG
+                    # print("Omitting deletion. Given vanillaString is found but it's value is different in the file")
+                    pass
+                else:
+                    # Status: Omitting modicifation
+                    # Reason: Given vanilla line is not found in given section
+                    # DEBUG
+                    # print("Omitting deletion. Given vanillaString is NOT found")
+                    pass
+                continue
+
+            if dic["isSnipeModification"]:
+                # This If block is when modification will be made in a specific
+                # section
+                # It requires several more steps than normal modification.
+                # First we search for the section header, then we find the next
+                # section header to know where our section starts and end.
+                # Then we search for our vanillaString in substring of fileString
+                # If found we split the fileString into parts,
+                # do the replacement where our section is, then combine the parts
+                # DEBUG
+                # print("SNIPE MODIFICATION WILL BE MADE")
+                thisSection = self._find_section(dic["section"])
+                if thisSection == -1:
+                    # TODO: Section not found, raise error
+                    # DEBUG
+                    # print("Section", dic["section"], "is not found!")
+                    continue
+                nextSection = self.__go_to_next_section(thisSection)
+                if nextSection > thisSection:
+                    # Next section is found. Searching as usual.
+                    iRelative = self.fileContent[thisSection:nextSection].find(
+                        dic["vanilla"])
+                else:
+                    # Current section is the last section. Searching until end of file.
+                    iRelative = self.fileContent[thisSection:].find(
+                        dic["vanilla"])
+                # An index is found but it is relative, to section header's pos
+                if iRelative != -1 and self.fileContent[thisSection+iRelative+len(dic["vanilla"])] == "\n":
+                    # Status: Proceeding with modicifation
+                    # Reason: Given vanilla string's exact copy in given
+                    #   section is found
+                    # DEBUG
+                    # print("All checks are done. Proceeding to replacement.")
+                    if nextSection > thisSection:
+                        # Split fileContent into three parts
+                        # make modification in the middle part
+                        # then combine all
+                        self.fileContent = self.fileContent[:thisSection] \
+                            + self.fileContent[thisSection:nextSection].replace(
+                                dic["vanilla"], dic["modification"]) \
+                            + self.fileContent[nextSection:]
+                    else:
+                        # Split fileContent into two
+                        # make modification in the last part
+                        # then combine
+                        self.fileContent = self.fileContent[:thisSection] \
+                            + self.fileContent[thisSection:].replace(
+                                dic["vanilla"], dic["modification"])
+                    # DEBUG
+                    # print("Replacement done!")
+                elif iRelative != -1:
+                    # Status: Omitting modification
+                    # Reason: Given vanilla string in given section is found
+                    #   but original value is longer
+                    # DEBUG
+                    # print("Omitting modification. Given vanillaString is found but it's value is different in the file")
+                    pass
+                else:
+                    # Status: Omitting modicifation
+                    # Reason: Given vanilla line is not found in given section
+                    # DEBUG
+                    # print("Omitting modification. Given vanillaString is NOT found")
+                    pass
+                continue
+            # DEBUG, use to debug SNIPE MODIFICATION
+            # print("Out of SNIPE MODIFICATION SCOPE.")
+            # print("You shouldn't have seen this messages.")
             index = self.fileContent.find(dic["vanilla"])
             if index != -1 and self.fileContent[index+len(dic["vanilla"])] == "\n":
                 # Status: Proceeding with modicifation
