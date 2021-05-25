@@ -1,23 +1,35 @@
 # MELE Quick Ini Editor - Introduction
 This small terminal application allows users and modders to apply certain changes to
-Mass Effect 1: Legendary Edition's configuration files without replacing the whole file; losing possible early modifications in process.
+Mass Effect Legendary Edition's configuration files without replacing the whole file; losing possible early modifications in process.
 
-Currently editable files are all `.ini` files inside `Coalesced_INT.bin`, `BIOEngine.ini` and `BIOGame.ini`.
+Currently editable files are all `.ini` files inside `Coalesced_*.bin`, `BIOEngine.ini` and `BIOGame.ini`, `GamerSettings.ini`. Currently Mass Effect 1 and 2 are supported. 
 
 ### To Modders
 Modders only need to provide users `.txt` files inside `MOD` folder as filled. Modders can also just share their changes in syntax provided below.
 
 Your addition to `.txt` files will be reflected on the game's `.ini` files.
 
-### Build the source code (for developers)
-Use py2exe and provided `setup.py`.
+### To developers
+**This section is for people who downloaded THE SOURCE CODE, not the release package.**
 
+Python 3.5> required to run the program from source code. Use the following commands to run.
+
+`python PATHTO_QUICKINIEDITOR.PY` Change PATHTO_QUICKINIEDITOR.PY according to what directory your terminal session is in. 
+
+If your terminal is pointing the folder the source code is in, above command becomes:
+```python quickIniEditor.py```
+
+#### Building
+
+I use Py2exe to produce a distribution package. `setup.py` I use is included in the source code.
+This is the command I use to build:
 ```python setup.py py2exe```
+It will create a folder called `dist` and put your build and exe inside it.
 
 ### Run the program (for users)
 Download the latest release, extract the `.zip` file, run `quickIniEditor.exe`.
 
-You also need to fill `.txt` files inside `MOD` folder or replace the `.txt` file provided by your mod. Read below to learn more. 
+You also need to fill `.txt` files inside `MOD` folder or replace the `.txt` file provided by your mod or as you like it. Read below to learn more. 
 
 This program won't change change your files unless you make changes to `.txt` files since they are shipped empty.
 
