@@ -12,7 +12,7 @@ import constants
 from colors import Style as color
 
 
-def pick():
+def detect():
     gameInfo = GameLang()
     coalesced2Suffix = confirmcoafile(gameInfo)
     p = Path("./Temp/")
