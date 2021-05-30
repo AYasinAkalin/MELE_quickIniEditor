@@ -1,8 +1,11 @@
 from distutils.core import setup
 import glob
 import py2exe
+import createEmptyTempFilePath
+import createEmptyFiles
 
-
+createEmptyTempFilePath.create()
+createEmptyFiles.create()
 setup(
     console=["quickIniEditor.py"],
     data_files=[("helpers", glob.glob("helpers\\*.ps1")),
