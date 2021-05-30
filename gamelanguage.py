@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """gamelanguage.py"""
-__version__ = "1.0.2"
+__version__ = "1.1.1"
 __author__ = "A. Yasin Akalın"
 __credits__ = ""
 __license__ = "GNU General Public License v3.0"
@@ -51,14 +51,25 @@ class GameLang(object):
         An internal method that fills coa suffix
         (suffix is where * is Coalesced_*.bin ) info for this GameLang() class.
 
+    - isConfigFileUsed()
+        Returns True if everything went smoothly and game's configuration file
+        is read.
+        Return False if game's configuration file is not read and default
+        values are used. Default language is English, default locale is US.
+
+        If result of this method is False, let the user know that default
+        values are used.
+
     Usage:
         gameInfo = GameLang()
+        gameInfo.isConfigFileUsed()
         gameInfo.getLangLocale()
         gameInfo.getLanguage()
         gameInfo.getCoalescedSuffix()
     """
     def __init__(self):
         super(GameLang, self).__init__()
+        self.configFileError = False
         self.documentsPath = self._findDocumentsFolder()
         self.lang_locale = self._detectLangLocale()
         self.languageLongString = self._language()
@@ -97,17 +108,24 @@ class GameLang(object):
         return documentsfolder
 
     def _detectLangLocale(self):
-        # DEBUG:print(documentsfolder)
+        # DEBUG: print(self.documentsPath)
         cfilepath = Path(self.documentsPath) \
                 / "BioWare"\
                 / "Mass Effect Legendary Edition"\
                 / "LauncherConfig.cfg"
-        # DEBUG:print(cfilepath)
+        # DEBUG: print(cfilepath)
         parser = cp.ConfigParser(strict=False)
-        with open(cfilepath) as f:
-            parser.read_file(f)
-        # DEBUG:print(parser.get("Main", "Language"))
-        return parser.get("Main", "Language")
+        gamelanglocale = ''
+        try:
+            with open(cfilepath) as f:
+                parser.read_file(f)
+            # DEBUG:
+            print(parser.get("Main", "Language"))
+            gamelanglocale = parser.get("Main", "Language")
+        except FileNotFoundError:
+            gamelanglocale = "en_US"  # Default val used, user config isnt read
+            self.configFileError = True
+        return gamelanglocale
 
     def _language(self):
         return constants.lang_locale_map[self.lang_locale]["language"]
@@ -117,6 +135,9 @@ class GameLang(object):
 
     def setCoaSuffix(self, newSuffix):
         self.coalescedSuffix = newSuffix
+
+    def isConfigFileUsed(self):
+        return not self.configFileError
 
 
 # DEBUG:gameInfo = GameLang()

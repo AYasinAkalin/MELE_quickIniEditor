@@ -1,0 +1,17 @@
+Add the lines below explanation to MOD\ME1\ModsToBIOEngine.txt
+
+When you run the tool it will replace value of 'GameName'
+from 'Mass Effect 'to 'Mass Effect 655' in Mass Effect 1's BIOEngine.ini.
+It will specifically look under 'URL' section in BIOEngine.ini and no other places.
+
+After first line the program will replace value of 'bEnableSpam'
+from 'False 'to 'True' in the same file.
+It will search entirity of BIOEngine.ini to find `bEnableSpam=False` line.
+
+This is a replacement because there is a key-value pair without any spaces,
+special delimiter ';;' without any spaces before and after it,
+and another key-value pair after delimiter with the same key but different value than before.
+You can add a section designation but it is optional.
+--------------------------------------------------------------------------------------
+GameName=Mass Effect;;GameName=Mass Effect 655@[URL]
+bEnableSpam=False;;bEnableSpam=True

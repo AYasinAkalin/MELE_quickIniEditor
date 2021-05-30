@@ -1,6 +1,0 @@
-GameName=Mass Effect;;GameName=Mass Effect 655
-bEnableSpam=False;;bEnableSpam=True
-;;NewOption=False@[URL]
-;;NewOption=False@[A.New.Section]
-;;NewOption=False@[A.New.Section]
-;;Number=9995.12@[B.New.Section]

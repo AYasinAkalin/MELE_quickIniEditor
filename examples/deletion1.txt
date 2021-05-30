@@ -1,0 +1,8 @@
+Add the line below explanation to MOD\ME2\ModsToBIOGame.txt
+
+When you run the tool it will delete 'm_aCullFXConvList' with value 'omghub_arrival_ai_a_dlg'
+from Mass Effect 2's BIOGame.ini.
+
+This is a deletion because there is nothing after ';;'
+------------------------------------------------------------------------
+m_aCullFXConvList=omghub_arrival_ai_a_dlg;;

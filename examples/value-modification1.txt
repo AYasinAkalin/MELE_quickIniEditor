@@ -1,0 +1,10 @@
+Add the line below explanation to MOD\ME1\ModsToBIOGame.txt
+
+When you run the tool it will replace value of 'DefaultGame'
+from 'SFXGame.BioSPGame'to 'Asimov' in Mass Effect 1's BIOGame.ini.
+
+This is a replacement because there is a key-value pair without any spaces,
+special delimiter ';;' without any spaces before and after it,
+and another key-value pair after delimiter with the same key but different value than before.
+-------------------------------------------------------------------------------------
+DefaultGame=SFXGame.BioSPGame;;DefaultGame=Asimov

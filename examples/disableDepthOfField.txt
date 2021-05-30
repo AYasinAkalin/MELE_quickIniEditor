@@ -1,0 +1,9 @@
+Disable Depth of Field in Mass Effect 1: Legendary Edition
+
+Add the line below explanation to following files, then run the program.
+  - MOD\ME1\ModsToCoaBIOEngine.txt
+  - MOD\ME1\ModsToBIOEngine.txt
+
+It will make modifications to Mass Effect 1's BIOEngine.ini and Coalesced_INI.bin file
+--------------------------------------------------------------------------------------
+DepthOfField=True;;DepthOfField=False
