@@ -6,11 +6,9 @@ __license__ = "GNU General Public License v3.0"
 __date__ = "2021-05-23"
 from pathlib import Path
 
+
 # Info: https://docs.python.org/3/library/pathlib.html#pathlib.Path.touch
-if __name__ == "__main__":
-    # Following commands will execute if this file is ran directly.
-    # Importing this .py to another .py script won't invoke the following cmds
-    # because of __name__ equality check
+def create():
     files = (
         "ModsToCoaBIOAI.txt",
         "ModsToCoaBIOCompat.txt",
@@ -44,3 +42,10 @@ if __name__ == "__main__":
             print("Created successfully:", f)
         except Exception:
             print("Failed to create file:", f)
+
+
+if __name__ == "__main__":
+    # Following commands will execute if this file is ran directly.
+    # Importing this .py to another .py script won't invoke the following cmds
+    # because of __name__ equality check
+    create()

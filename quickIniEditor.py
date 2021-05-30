@@ -30,7 +30,7 @@ if process.returncode == 1:
 elif process.returncode == 2:
     # Code 2 is game language is not known
     # Call the python script, then rerun the batch script
-    me2coa.pick()
+    me2coa.detect()
     process = subprocess.run([".\\helpers\\cli1.bat"])
 
 try:
